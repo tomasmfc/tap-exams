@@ -59,6 +59,4 @@ Thumbs.db
 # VSCode Settings
 .vscode
 
-**/*.worksheet.sc
-
 **/*_outDiff.xml
