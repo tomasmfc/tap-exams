@@ -2,6 +2,7 @@ package year2024.normal
 
 import SimpleTypes.*
 import year2024.normal.SimpleTypes.Intervalo.sobreposicao
+import scala.annotation.tailrec
 
 def intervaloPossivel(
     lp: List[(Prova, Intervalo)],
@@ -47,3 +48,21 @@ def fusao(ll: List[List[Prova]], p: Prova): List[List[Prova]] =
     List(p) :: finalList
   else
     finalList
+
+def conjuntos(lp: List[Prova]): List[List[Prova]] =
+  @tailrec
+  def conjuntos2(
+      lpUpdated: List[Prova],
+      returnList: List[List[Prova]]
+  ): List[List[Prova]] =
+    if (lpUpdated.isEmpty) returnList
+    val list = lpUpdated.foldLeft(List.empty[Prova])((acc, elem) => {
+      if (acc.isEmpty) elem :: acc
+      val resources = acc.flatMap(_.lr).distinct
+      if (elem.lr.exists(resource => resources.contains(resource)))
+        elem :: acc
+      else acc
+    })
+    conjuntos2(lpUpdated.diff(list), list :: returnList)
+
+  conjuntos2(lp, List.empty[List[Prova]])
