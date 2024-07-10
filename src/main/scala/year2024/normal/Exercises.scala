@@ -50,19 +50,20 @@ def fusao(ll: List[List[Prova]], p: Prova): List[List[Prova]] =
     finalList
 
 def conjuntos(lp: List[Prova]): List[List[Prova]] =
-  @tailrec
-  def conjuntos2(
+  @tailrec def conjuntos2(
       lpUpdated: List[Prova],
-      returnList: List[List[Prova]]
+      acc: List[List[Prova]]
   ): List[List[Prova]] =
-    if (lpUpdated.isEmpty) returnList
-    val list = lpUpdated.foldLeft(List.empty[Prova])((acc, elem) => {
-      if (acc.isEmpty) elem :: acc
-      val resources = acc.flatMap(_.lr).distinct
-      if (elem.lr.exists(resource => resources.contains(resource)))
-        elem :: acc
-      else acc
-    })
-    conjuntos2(lpUpdated.diff(list), list :: returnList)
+    if (lpUpdated.isEmpty) acc
+    else
+      val list = lpUpdated.foldLeft(List.empty[Prova])((acc, elem) => {
+        if (acc.isEmpty) elem :: acc
+        else
+          val resources = acc.flatMap(_.lr).distinct
+          if (elem.lr.exists(resource => resources.contains(resource)))
+            elem :: acc
+          else acc
+      })
+      conjuntos2(lpUpdated.diff(list), list :: acc)
 
   conjuntos2(lp, List.empty[List[Prova]])
