@@ -2,11 +2,11 @@ package year2024.normal
 
 object SimpleTypes:
 
-  // opaque type NomeRecurso = String
-  // object NomeRecurso:
-  // def from(name: String): Result[NomeRecurso] =
-  // if (name.matches("RH[0-9]+")) Right(name)
-  // else Left(DomainError.NomeRecursoInvalido)
+  opaque type NomeRecurso = String
+  object NomeRecurso:
+    def from(name: String): Result[NomeRecurso] =
+      if (name.matches("RH[0-9]+")) Right(name)
+      else Left(DomainError.NomeRecursoInvalido)
 
   opaque type Preferencia = Int
 
@@ -29,5 +29,5 @@ object SimpleTypes:
       (i2.inicio > i1.fim) && (i2.fim > i1.inicio)
 
   final case class Disponibilidade(i: Intervalo, p: Preferencia)
-  final case class RecursoHumano(nome: String, Ld: List[Disponibilidade])
+  final case class RecursoHumano(nome: NomeRecurso, Ld: List[Disponibilidade])
   final case class Prova(estudante: String, lr: List[RecursoHumano])
