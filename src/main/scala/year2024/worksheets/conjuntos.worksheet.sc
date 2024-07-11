@@ -1,6 +1,11 @@
+import year2024.normal.SimpleTypes.NomeRecurso
 import year2024.normal.conjuntos
 import year2024.normal.SimpleTypes.RecursoHumano
 import year2024.normal.SimpleTypes.Prova
+
+// TODO: ver como dar fix a isto
+
+// val n1 = NomeRecurso.from("R1")
 
 val r1 = RecursoHumano("R1", List.empty)
 val r2 = RecursoHumano("R2", List.empty)
